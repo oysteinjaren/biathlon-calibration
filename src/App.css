@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.target {
+.target-area {
   position: relative;
   width: 100%;
   max-width: 1000px;
@@ -12,11 +12,11 @@
   border: 1px solid black;
 }
 
-.target::before {
+.standing-target {
   content: "";
   position: absolute;
-  width: 50%;
-  height: 50%;
+  width: calc((var(--standing-target-diameter) / var(--target-area-size)) * 100%);
+  height: calc((var(--standing-target-diameter) / var(--target-area-size)) * 100%);
   background-color: black;
   border-radius: 50%;
   top: 50%;
@@ -24,11 +24,33 @@
   transform: translate(-50%, -50%);
 }
 
-.hit {
+.prone-target {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc((var(--prone-target-diameter) / var(--target-area-size)) * 100%);
+  height: calc((var(--prone-target-diameter) / var(--target-area-size)) * 100%);
+  border: 2px solid white;
+  border-radius: 50%;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.shot {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.avg-shot {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: red;
+  background-color: blue;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
