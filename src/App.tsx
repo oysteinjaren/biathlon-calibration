@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-const TARGET_AREA_SIZE_MM = 230;
+const TARGET_AREA_SIZE_MM = 150;
 const STANDING_TARGET_DIAMETER_MM = 115;
 const PRONE_TARGET_DIAMETER_MM = 45;
 // Set CSS variables
