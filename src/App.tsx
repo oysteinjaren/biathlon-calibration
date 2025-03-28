@@ -78,7 +78,15 @@ function App() {
   const renderAvgShot = () => {
     if (!avgShot) return null;
     const { x, y } = toPixelCoordinates(avgShot.normalizedX, avgShot.normalizedY);
-    return <div className="avg-shot" style={{ left: x, top: y }} />;
+    const { realX, realY } = toRealWorldCoordinates(
+      avgShot.normalizedX,
+      avgShot.normalizedY
+    );
+    return <div
+      className="avg-shot"
+      style={{ left: x, top: y }}
+      title={`Avg shot: (${realX.toFixed(2)} mm, ${realY.toFixed(2)} mm)`}
+    />;
   };
 
   return (
@@ -100,9 +108,7 @@ function App() {
               key={index}
               className="shot"
               style={{ left: x, top: y }}
-              title={`Real-world coordinates: (${realX.toFixed(
-                2
-              )} mm, ${realY.toFixed(2)} mm)`}
+              title={`Shot ${index + 1}: (${realX.toFixed(2)} mm, ${realY.toFixed(2)} mm)`}
             />
           );
         })}
