@@ -15,8 +15,8 @@
 .target::before {
   content: "";
   position: absolute;
-  width: 70%;
-  height: 70%;
+  width: 50%;
+  height: 50%;
   background-color: black;
   border-radius: 50%;
   top: 50%;
