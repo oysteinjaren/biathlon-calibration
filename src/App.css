@@ -54,3 +54,26 @@
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
+
+.adjustment-recommendation {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.adjustment-recommendation p {
+  margin: 5px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.adjustment-recommendation p:first-child {
+  font-weight: bold;
+  font-size: 18px;
+  color: #007BFF; /* A modern blue color */
+}

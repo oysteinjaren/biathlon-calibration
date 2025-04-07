@@ -4,6 +4,9 @@ import "./App.css";
 const TARGET_AREA_SIZE_MM = 150;
 const STANDING_TARGET_DIAMETER_MM = 115;
 const PRONE_TARGET_DIAMETER_MM = 45;
+
+const MM_PER_ADJUSTMENT_CLICK = 3; // Izhmash 7-3 rifle at 50 meters
+
 // Set CSS variables
 document.documentElement.style.setProperty('--target-area-size', TARGET_AREA_SIZE_MM.toString());
 document.documentElement.style.setProperty('--prone-target-diameter', PRONE_TARGET_DIAMETER_MM.toString());
@@ -17,6 +20,11 @@ function App() {
     normalizedX: number;
     normalizedY: number;
   } | null>(null);
+  const [clicks, setClicks] = useState<{
+    x: number;
+    y: number;
+  }>({ x: 0, y: 0 });
+
   const [targetSizeInPixels, setTargetSizeInPixels] = useState<{
     width: number;
     height: number;
@@ -60,7 +68,16 @@ function App() {
       const sumY = updatedShots.reduce((acc, shot) => acc + shot.normalizedY, 0);
       const avgShot = { normalizedX: sumX / updatedShots.length, normalizedY: sumY / updatedShots.length };
       setAvgShot(avgShot);
+      updateClicks(avgShot);
     }
+  }
+
+  function updateClicks(avgShot: { normalizedX: number; normalizedY: number }) {
+    const realX = avgShot.normalizedX * TARGET_AREA_SIZE_MM;
+    const realY = avgShot.normalizedY * TARGET_AREA_SIZE_MM;
+    const clicksX = Math.round(realX / MM_PER_ADJUSTMENT_CLICK);
+    const clicksY = Math.round(realY / MM_PER_ADJUSTMENT_CLICK);
+    setClicks({ x: clicksX, y: clicksY });
   }
 
   function toRealWorldCoordinates(normalizedX: number, normalizedY: number) {
@@ -114,6 +131,13 @@ function App() {
         })}
         {renderAvgShot()}
       </div>
+      {avgShot && (
+        <div className="adjustment-recommendation">
+          <p>Adjust:</p>
+          <p>Left/Right: {clicks.x > 0 ? `${clicks.x} clicks left` : clicks.x < 0 ? `${-clicks.x} clicks right` : 'None'}</p>
+          <p>Up/Down: {clicks.y > 0 ? `${clicks.y} clicks up` : clicks.y < 0 ? `${-clicks.y} clicks down` : 'None'}</p>
+        </div>
+      )}
     </div>
   );
 }
